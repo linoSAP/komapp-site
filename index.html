@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon standard -->
+<link rel="icon" href="public/ic.png" type="image/x-icon" sizes="16x16">
+
+<!-- Pour les appareils Apple -->
+<link rel="apple-touch-icon" href="public/ic.png">
+
+<!-- Favicon moderne (format PNG recommandé) -->
+<link rel="icon" type="image/png" href="public/ic.png" sizes="32x32">
+<link rel="icon" type="image/png" href="public/ic.pngc" sizes="16x16">
+
+<!-- Pour Windows Metro -->
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="mstile-144x144.png">
+
+    <title>KomApp - La révolution de la gestion commerciale mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #4895ef;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        @font-face {
+            font-family: 'Plus Jakarta Sans';
+            src: url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        ::selection {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* Header */
+        header {
+            background: var(--darker);
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+        #download-section { display: none; }
+        .error { color: red; margin-top: 10px; display: none; }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            letter-spacing: 1px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary-light);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-light);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--darker);
+            color: white;
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 60s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            color: var(--primary-light);
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-image-container {
+            flex: 1;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .phone-mockup {
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(-5deg); }
+            50% { transform: translateY(-20px) rotateX(5deg) rotateY(5deg); }
+        }
+
+        .screen {
+            position: absolute;
+            top: 5.5%;
+            left: 7.5%;
+            width: 85%;
+            height: 89%;
+            border-radius: 25px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-description {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.03), rgba(114, 9, 183, 0.03));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .feature-link:hover {
+            color: var(--secondary);
+            gap: 0.75rem;
+        }
+
+        /* Demo Section */
+        .demo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 40s linear infinite;
+            z-index: 1;
+        }
+
+        .demo-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .demo-text {
+            flex: 1;
+        }
+
+        .demo-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .demo-description {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .demo-audio {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-image-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .demo-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: rotateY(-10deg);
+            transition: var(--transition);
+        }
+
+        .demo-image:hover {
+            transform: rotateY(0deg);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: white;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.popular {
+            border: 1px solid var(--primary-light);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.1);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 2rem;
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .pricing-period {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .pricing-features {
+            margin-bottom: 2.5rem;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-feature i {
+            color: var(--primary-light);
+        }
+
+        .pricing-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: var(--darker);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, white, var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            font-size: 1.75rem;
+            color: var(--primary-light);
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link-item {
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+            gap: 0.75rem;
+        }
+
+        .footer-link i {
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content, .demo-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-image-container, .demo-image-container {
+                margin-top: 3rem;
+            }
+
+            .hero-title {
+                font-size: 2.75rem;
+            }
+
+            .hero-buttons, .hero-stats, .cta-buttons {
+                justify-content: center;
+            }
+
+            .pricing-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.25rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span class="logo-icon">📱</span>
+                    <span>KomApp</span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="#features" class="nav-link">Fonctionnalités</a>
+                    <a href="#demo" class="nav-link">Démo</a>
+                    <a href="#pricing" class="nav-link">Tarifs</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                
+                <a href="#download" class="cta-button">Télécharger</a>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title fade-in">Gérez votre commerce simplement, même hors ligne</h1>
+                    <p class="hero-subtitle fade-in delay-1">
+                        KomApp est la solution tout-en-un pour les commerçants qui veulent simplifier leur gestion quotidienne avec une application intuitive et puissante.
+                    </p>
+                    
+                    <div class="hero-buttons fade-in delay-2">
+                        <a href="#download" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Télécharger
+                        </a>
+                        <a href="public/demo.mp4" class="btn btn-secondary">
+                            <i class="fas fa-play-circle"></i> Voir la démo
+                        </a>
+                    </div>
+                    
+                    <div class="hero-stats fade-in delay-3">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number">240 +</div>
+                                <div class="stat-label">Commerçants</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Disponibilité</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <div class="stat-number">100%</div>
+                                <div class="stat-label">Hors ligne</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image-container fade-in delay-2">
+                    <div class="phone-mockup">
+                        <img src="public/mockup.png" alt="Phone Mockup" class="phone-mockup">
+                        <!-- <div class="screen">
+                            <img src="public/interface.png" alt="App Screenshot" class="screen-content">
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle reveal">POURQUOI CHOISIR KOMAPP</p>
+                <h2 class="section-title reveal">Fonctionnalités conçues pour les commerçants</h2>
+                <p class="section-description reveal">
+                    Découvrez comment KomApp peut transformer la gestion de votre commerce avec des outils puissants et faciles à utiliser.
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3 class="feature-title">Gestion de stock intelligente</h3>
+                    <p class="feature-description">
+                        Suivez vos produits en temps réel, recevez des alertes de stock faible et gérez vos inventaires avec une interface intuitive.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card reveal delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <h3 class="feature-title">Caisse intégrée</h3>
+                    <p class="feature-description">
+                        Enregistrez vos ventes rapidement, imprimez des tickets ou factures, et suivez vos revenus en quelques clics.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card reveal delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3 class="feature-title">Fonctionnement hors ligne</h3>
+                    <p class="feature-description">
+                        Continuez à travailler même sans connexion internet. Vos données se synchroniseront automatiquement dès que vous êtes reconnecté.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Analyses et rapports</h3>
+                    <p class="feature-description">
+                        Visualisez vos performances avec des graphiques clairs et des statistiques détaillées pour prendre des décisions éclairées.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card reveal delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Gestion clients</h3>
+                    <p class="feature-description">
+                        Créez des profils clients, suivez leurs achats et fidélisez votre clientèle avec des outils marketing intégrés.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <div class="feature-card reveal delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Synchronisation multi-appareils</h3>
+                    <p class="feature-description">
+                        Accédez à vos données sur plusieurs appareils avec une synchronisation sécurisée et automatique.
+                    </p>
+                    <a href="#" class="feature-link">
+                        En savoir plus <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="demo-content">
+                <div class="demo-text">
+                    <h2 class="demo-title reveal">Découvrez KomApp en action</h2>
+                    <p class="demo-description reveal">
+                        Écoutez cette démonstration audio pour comprendre comment KomApp peut simplifier votre quotidien de commerçant.
+                    </p>
+                    
+                    <audio controls class="demo-audio reveal">
+                        <source src="public/audio.mp3" type="audio/mp3">
+                        Votre navigateur ne supporte pas l'audio.
+                    </audio>
+                    
+                    <div class="reveal">
+                        <a href="#download" class="btn btn-primary">
+                            <i class="fas fa-download"></i> Essai gratuit 60 jours
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="demo-image-container reveal">
+                    <img src="public/interface.png" alt="KomApp Interface" class="demo-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle reveal">TARIFS ABORDABLES</p>
+                <h2 class="section-title reveal">Choisissez votre formule</h2>
+                <p class="section-description reveal">
+                    Trouvez le plan qui correspond à la taille et aux besoins de votre commerce.
+                </p>
+            </div>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card reveal">
+                    <h3 class="pricing-name">Starter</h3>
+                    <div class="pricing-price">0€ <span class="pricing-period">/mois</span></div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Gestion de stock de base
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Enregistrement des ventes
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Fonctionnement hors ligne
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Support par email
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button">
+                        <a href="#download" class="btn btn-secondary">
+                            Commencer l'essai
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card popular reveal delay-1">
+                    <div class="popular-badge">Populaire</div>
+                    <h3 class="pricing-name">Pro</h3>
+                    <div class="pricing-price">19€ <span class="pricing-period">/mois</span></div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Toutes fonctionnalités Starter
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Rapports avancés
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Gestion clients complète
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Synchronisation multi-appareils
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Support prioritaire
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button">
+                        <a href="#download" class="btn btn-primary">
+                            Essai gratuit
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card reveal delay-2">
+                    <h3 class="pricing-name">Business</h3>
+                    <div class="pricing-price">49€ <span class="pricing-period">/mois</span></div>
+                    
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Toutes fonctionnalités Pro
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Multi-utilisateurs
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> API d'intégration
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Formation personnalisée
+                        </div>
+                        <div class="pricing-feature">
+                            <i class="fas fa-check"></i> Support 24/7
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-button">
+                        <a href="#contact" class="btn btn-secondary">
+                            Nous contacter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="download">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title reveal">Prêt à révolutionner votre gestion commerciale ?</h2>
+                <p class="cta-description reveal">
+                    Téléchargez KomApp maintenant et bénéficiez de 60 jours d'essai gratuit sans engagement.
+                </p>
+                
+                <div class="cta-buttons reveal">
+                    <div id="key-form">
+                        <h2>Entrez votre clé de licence</h2>
+                        <input type="text" id="unlock-key" placeholder="Entrez la clé fournie" maxlength="16">
+                        <button onclick="validateKey()">Valider</button>
+                        <p id="key-error" class="error">Clé invalide</p>
+                    </div>
+                
+                    <div id="download-section">
+                        <h2>Clé validée avec succès!</h2>
+                        <a href="public/komapp.apk" download class="btn btn-primary">
+                            <i class="fas fa-download"></i> Télécharger l'APK
+                        </a>
+                    </div>
+                      <a href="public/demo.mp4" class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> Voir la démo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="footer-logo-icon">📱</span>
+                        <span>KomApp</span>
+                    </div>
+                    <p class="footer-description">
+                        La solution tout-en-un pour les commerçants qui veulent simplifier leur gestion quotidienne avec une application intuitive et puissante.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Produit</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="#features" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Fonctionnalités
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#pricing" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Tarifs
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#download" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Télécharger
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Nouveautés
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Entreprise</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> À propos
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Carrières
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Blog
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Presse
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-title">Support</h3>
+                    <ul class="footer-links">
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Centre d'aide
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Tutoriels
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Contact
+                            </a>
+                        </li>
+                        <li class="footer-link-item">
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-chevron-right"></i> Confidentialité
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 KomApp. Tous droits réservés. Conçu avec ❤️ pour les commerçants.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function validateKey() {
+            const input = document.getElementById('unlock-key').value.toUpperCase();
+            const errorElement = document.getElementById('key-error');
+            
+            if (/^[0-9A-F]{16}$/.test(input)) {
+                document.getElementById('key-form').style.display = 'none';
+                document.getElementById('download-section').style.display = 'block';
+                errorElement.style.display = 'none';
+                
+                sessionStorage.setItem('keyValidated', 'true');
+            } else {
+                errorElement.style.display = 'block';
+            }
+        }
+
+        if (sessionStorage.getItem('keyValidated') === 'true') {
+            document.getElementById('key-form').style.display = 'none';
+            document.getElementById('download-section').style.display = 'block';
+        }
+    </script>
+
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        revealElements.forEach(element => {
+            observer.observe(element);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.style.display = 'none';
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.style.display = 'flex';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
