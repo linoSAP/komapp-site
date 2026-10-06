@@ -81,15 +81,24 @@ h1{font-size:clamp(2.5rem,5.2vw,4.2rem)}
 .final{background:var(--green);color:#fff;text-align:center}
 .final h2{font-size:clamp(2rem,4vw,3.2rem);max-width:18em;margin:0 auto}
 .final p{margin:1.2rem auto 2.2rem;max-width:32em;opacity:.85}
-footer{padding:2rem 0;color:var(--muted);font-size:.95rem}
-footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 
+.price small{font:500 1rem Figtree,sans-serif;opacity:.7}
+.final .btn-line{border-color:#fff;color:#fff}
+.final .btn-line:hover{background:#fff;color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:3.5rem 0 2rem;color:var(--muted)}
+.foot{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem}
+.foot p{margin:.8rem 0;max-width:24em}
+.foot h3{font-size:1.1rem;color:var(--ink)}
+.foot a:not(.btn):not(.logo){text-decoration:none}
+.foot a:not(.btn):not(.logo):hover{color:var(--ink)}
+.copy{margin-top:2.5rem;font-size:.9rem}
+.wa{position:fixed;right:1.2rem;bottom:1.2rem;z-index:20;background:#25D366;color:#06301A;font-weight:600;text-decoration:none;padding:.75rem 1.3rem;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
 @media(max-width:860px){
 section{padding:4rem 0}
 nav a:not(.btn){display:none}
 .hero .wrap,.demo .wrap{grid-template-columns:1fr;gap:2.5rem}
 .stage{height:480px}
-.features,.plans{grid-template-columns:1fr}
+.features,.plans,.foot{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
 </style>
@@ -111,13 +120,13 @@ nav a:not(.btn){display:none}
 <section class="hero">
 <div class="wrap">
 <div>
-<h1>Votre commerce sous contrôle, même sans internet.</h1>
-<p class="lead">KomApp gère votre stock, vos ventes et vos clients depuis votre téléphone. Tout fonctionne hors ligne et se synchronise dès que la connexion revient.</p>
+<h1>Arrêtez de perdre de l'argent sur votre stock.</h1>
+<p class="lead">Chaque article oublié ou mal compté est de l'argent perdu. KomApp suit votre stock, vos ventes et vos clients depuis votre téléphone, sans internet. Vous voyez enfin ce qui rapporte.</p>
 <div class="cta">
-<a class="btn btn-gold" href="public/komapp.apk" download>Télécharger l'APK</a>
+<a class="btn btn-gold" href="public/komapp.apk" download>Essayer 60 jours gratuits</a>
 <a class="btn btn-line" href="#demo">Voir la démo</a>
 </div>
-<p class="note">60 jours d'essai gratuit, sans engagement. Pour Android. Déjà utilisé par plus de 240 commerçants.</p>
+<p class="note">0 F pendant 60 jours, sans engagement. Pour Android. Plus de 240 commerçants l'utilisent déjà.</p>
 </div>
 <div class="stage">
 <div class="phone"><img src="public/interface.png" width="1440" height="3120" alt="Écran d'accueil de KomApp avec le suivi du stock et des ventes"></div>
@@ -128,8 +137,8 @@ nav a:not(.btn){display:none}
 <section id="fonctionnalites">
 <div class="wrap">
 <div class="head">
-<h2>Tout ce qu'il faut pour tenir sa boutique</h2>
-<p>Des outils simples, pensés pour la vente au quotidien.</p>
+<h2>Vendez plus, perdez moins</h2>
+<p>Six outils simples qui remplacent le cahier, la calculatrice et la mémoire.</p>
 </div>
 <div class="features">
 <div><h3>Gestion de stock</h3><p>Suivez vos produits en temps réel et recevez une alerte quand un article est presque épuisé.</p></div>
@@ -138,6 +147,17 @@ nav a:not(.btn){display:none}
 <div><h3>Analyses et rapports</h3><p>Des graphiques clairs pour voir ce qui se vend, ce qui rapporte et où ajuster.</p></div>
 <div><h3>Gestion des clients</h3><p>Gardez l'historique d'achats de chaque client et fidélisez-les avec des outils de suivi intégrés.</p></div>
 <div><h3>Multi-appareils</h3><p>Retrouvez vos données sur plusieurs téléphones, avec une synchronisation sécurisée.</p></div>
+</div>
+</div>
+</section>
+
+<section id="etapes">
+<div class="wrap">
+<div class="head"><h2>Prêt à vendre en 3 étapes</h2><p>Moins de 10 minutes entre le téléchargement et votre première vente enregistrée.</p></div>
+<div class="features">
+<div><h3>1. Installez</h3><p>Téléchargez l'APK et installez-la sur votre téléphone Android.</p></div>
+<div><h3>2. Ajoutez vos produits</h3><p>Entrez vos articles, vos prix et vos quantités en stock.</p></div>
+<div><h3>3. Vendez</h3><p>Chaque vente met le stock à jour. Les alertes vous préviennent avant la rupture.</p></div>
 </div>
 </div>
 </section>
@@ -160,27 +180,27 @@ Votre navigateur ne supporte pas la vidéo.
 <section id="tarifs">
 <div class="wrap">
 <div class="head">
-<h2>Un tarif adapté à la taille de votre commerce</h2>
-<p>Commencez par 60 jours d'essai gratuit, sans engagement.</p>
+<h2>Commencez gratuitement, passez au Pro quand votre commerce grandit</h2>
+<p>Prix en FCFA. Aucun engagement pendant les 60 jours d'essai.</p>
 </div>
 <div class="plans">
 <div class="plan">
-<h3>Starter</h3>
-<div class="price">0€<span> /mois</span></div>
+<h3>Essai gratuit</h3>
+<div class="price">0 F<span> /60 jours</span></div>
 <ul><li>Gestion de stock de base</li><li>Enregistrement des ventes</li><li>Fonctionnement hors ligne</li><li>Support par email</li></ul>
-<a class="btn" href="public/komapp.apk" download>Commencer l'essai</a>
-</div>
-<div class="plan pro">
-<h3>Pro</h3>
-<div class="price">19€<span> /mois</span></div>
-<ul><li>Tout Starter</li><li>Rapports avancés</li><li>Gestion clients complète</li><li>Synchronisation multi-appareils</li><li>Support prioritaire</li></ul>
-<a class="btn btn-gold" href="public/komapp.apk" download>Essai gratuit</a>
+<a class="btn" href="public/komapp.apk" download>Démarrer gratuitement</a>
 </div>
 <div class="plan">
-<h3>Business</h3>
-<div class="price">49€<span> /mois</span></div>
-<ul><li>Tout Pro</li><li>Multi-utilisateurs</li><li>API d'intégration</li><li>Formation personnalisée</li><li>Support 24/7</li></ul>
-<a class="btn" href="mailto:VOTRE_EMAIL@exemple.com">Nous contacter</a>
+<h3>Pro mensuel</h3>
+<div class="price"><small>dès </small>5 500 F<span> /mois</span></div>
+<ul><li>Tout l'essai gratuit</li><li>Rapports avancés</li><li>Gestion clients complète</li><li>Synchronisation multi-appareils</li><li>Support prioritaire</li></ul>
+<a class="btn" href="https://wa.me/237600000000?text=Bonjour%20KomApp%2C%20je%20souhaite%20passer%20au%20Pro" target="_blank" rel="noopener">Passer au Pro</a>
+</div>
+<div class="plan pro">
+<h3>Pro annuel</h3>
+<div class="price"><small>dès </small>60 000 F<span> /an</span></div>
+<ul><li>Tout Pro mensuel</li><li>Économisez 6 000 F par an</li><li>Un seul paiement, plus de rappel</li></ul>
+<a class="btn btn-gold" href="https://wa.me/237600000000?text=Bonjour%20KomApp%2C%20je%20souhaite%20passer%20au%20Pro" target="_blank" rel="noopener">Choisir l'annuel</a>
 </div>
 </div>
 </div>
@@ -188,18 +208,25 @@ Votre navigateur ne supporte pas la vidéo.
 
 <section class="final">
 <div class="wrap">
-<h2>Prêt à simplifier votre gestion commerciale ?</h2>
-<p>Téléchargez KomApp et profitez de 60 jours d'essai gratuit, sans engagement.</p>
-<a class="btn btn-gold" href="public/komapp.apk" download>Télécharger l'APK</a>
+<h2>Chaque jour sans suivi de stock vous coûte de l'argent</h2>
+<p>Commencez aujourd'hui avec 60 jours gratuits, sans engagement. Une question ? Réponse directe sur WhatsApp.</p>
+<div class="cta" style="justify-content:center">
+<a class="btn btn-gold" href="public/komapp.apk" download>Essayer 60 jours gratuits</a>
+<a class="btn btn-line" href="https://wa.me/237600000000?text=Bonjour%20KomApp%2C%20je%20souhaite%20en%20savoir%20plus" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+</div>
 </div>
 </section>
 </main>
 
 <footer>
-<div class="wrap">
-<span>© 2026 KomApp. Tous droits réservés.</span>
-<span>Conçu pour les commerçants.</span>
+<div class="wrap foot">
+<div><a class="logo" href="#"><img src="public/ic.png" width="30" height="30" alt="">KomApp</a><p>L'application de gestion pour les commerçants, qui marche même sans internet.</p></div>
+<div><h3>Nous contacter</h3>
+<p><a class="btn btn-sm" href="https://wa.me/237600000000?text=Bonjour%20KomApp%2C%20je%20souhaite%20en%20savoir%20plus" target="_blank" rel="noopener">Écrire sur WhatsApp</a></p>
+<p><a href="tel:+237600000000">+237 6 00 00 00 00</a><br><a href="tel:+237695749209">+237 6 95 74 92 09</a><br><a href="mailto:linokouete@gmail.com.com"></a></p></div>
 </div>
+<div class="wrap copy">© 2026 KomApp. Tous droits réservés.</div>
 </footer>
+<a class="wa" href="https://wa.me/237600000000?text=Bonjour%20KomApp%2C%20je%20souhaite%20en%20savoir%20plus" target="_blank" rel="noopener">WhatsApp</a>
 </body>
 </html>
